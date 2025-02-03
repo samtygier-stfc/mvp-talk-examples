@@ -9,8 +9,16 @@ from PyQt5.QtTest import QTest
 from fib_mvp_pure import FibModel, FibWindowView, FibWindowPresenter
 
 from PyQt5.QtWidgets import *
+from parameterized import parameterized
 
 app = QApplication([])
+
+class FibUnitTest(unittest.TestCase):
+    @parameterized.expand([(1, 1), (2, 1), (3, 2), (10, 55)])
+    def test_fib_n(self, n, expected_f):
+        model = FibModel()
+        self.assertEqual(model.run_fib(n), expected_f)
+
 
 class FibSystemTest(unittest.TestCase):
     def setUp(self) -> None:
